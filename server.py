@@ -85,4 +85,4 @@ app.layout = html.Div(children=[
         )
     ])
 ])
-app.run_server(debug=False, port=9999, host='localhost')
+app.run_server(debug=False, port=9999, host='0.0.0.0')
