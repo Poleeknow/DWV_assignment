@@ -1,4 +1,4 @@
-pandas
-numpy
-plotly
-dash
+pandas==1.5.3
+numpy==1.23.5
+plotly==5.15.0
+dash==2.11.1
