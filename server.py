@@ -6,17 +6,8 @@ import plotly.express as px
 import numpy as np
 
 
-data = pd.read_csv('anime_table.csv', index_col=0)
+data = pd.read_csv('anime.csv', index_col=0)
 data.sort_values(by=['itm_title', 'russian_title', 'year'], ignore_index=True, inplace=True)
-
-data['status'] = np.zeros(shape=(len(data)))
-for i in range(len(data['year'])):
-    if data['year'][i].isnumeric():
-        data.loc[i,'year'] = int(data['year'][i])
-        data.loc[i,'status'] = 'Finised'
-    else: 
-        data.loc[i,'year'] = 2023
-        data.loc[i,'status'] = 'In process'
 
 lables = data['status'].value_counts().sort_index(ascending=True).to_frame()
 
@@ -24,16 +15,6 @@ pie = px.pie(lables, values='status', names=lables.index, hole=.3, height=500)
 pie.update_traces(textposition='outside', textinfo='label+percent', textfont_size=20,
                   marker=dict(colors=['mediumturquoise', 'darkorange'], line=dict(color='#000000', width=3)))
 pie.update_layout(annotations=[dict(text='Status of anime', x=0.5, y=0.5, font_size=22, showarrow=False)], legend=dict(x=0.8, y=0.5, title='Status:', font=dict(size=30),  bgcolor="LightGray", bordercolor="Black", borderwidth=3))
-
-for i in range(len(data['ganers'])):
-    data['ganers'][i] = eval(data['ganers'][i])
-    row = data['ganers'][i]
-    for item in row:
-        if item in data.columns:
-           data[item][i] = True
-        else:
-            data.insert(len(data.columns), item, False)
-            data[item][i] = True
 
 ganres = dict(zip(data.columns[6:], [0]*len(data.columns[6:])))
 for d in data.columns[6:]:
