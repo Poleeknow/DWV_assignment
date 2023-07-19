@@ -12,11 +12,11 @@ data.sort_values(by=['itm_title', 'russian_title', 'year'], ignore_index=True, i
 data['status'] = np.zeros(shape=(len(data)))
 for i in range(len(data['year'])):
     if data['year'][i].isnumeric():
-        data['year'][i] = int(data['year'][i])
-        data['status'][i] = 'Finised'
+        data.loc[i,'year'] = int(data['year'][i])
+        data.loc[i,'status'] = 'Finised'
     else: 
-        data['year'][i] = 2023
-        data['status'][i] = 'In process'
+        data.loc[i,'year'] = 2023
+        data.loc[i,'status'] = 'In process'
 
 lables = data['status'].value_counts().sort_index(ascending=True).to_frame()
 
